@@ -21,8 +21,6 @@ class Articles extends Model
      */
     public function getArticles(array $inputData)
     {
-        // echo Carbon::today()->format('Y-m-d');
-        // exit;
         $query = self::query();
 
         // Dynamic search filters
