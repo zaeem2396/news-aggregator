@@ -1,0 +1,20 @@
+meta {
+  name: Fetch article
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8000/api/article?source_name=ny
+  body: none
+  auth: none
+}
+
+params:query {
+  source_name: ny
+  ~s: world
+  ~fromDate: 2024-11-24
+  ~toDate: 2024-11-25
+  ~perPage: 4
+  ~section: world
+}

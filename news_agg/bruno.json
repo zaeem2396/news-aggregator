@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "news_agg",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

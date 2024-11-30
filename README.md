@@ -66,7 +66,5 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 <!-- 
-newsapi key = d666b0b30ec642f19afdf6e8381d7556 
-guarding api key = https://content.guardianapis.com/search?api-key=b9983729-e4fa-44bd-b441-083f07ce627e
-NYT api key = 2u2lgj8c3ifTTHeRicllEHBcCdiRoQiz
+sudo docker compose exec app bash -> opens terminal inside docker container
 -->
