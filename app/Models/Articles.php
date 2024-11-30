@@ -10,4 +10,5 @@ class Articles extends Model
     protected $tableName = 'articles';
     protected $primaryKey = 'id';
     protected $fillable = ['title', 'section', 'author', 'description', 'content', 'url', 'image_url', 'source_name', 'published_at'];
+    public $timestamps = false;
 }
