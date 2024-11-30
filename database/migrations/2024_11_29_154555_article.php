@@ -21,8 +21,7 @@ return new class extends Migration
             $table->string('url')->unique(); 
             $table->string('image_url')->nullable();
             $table->string('source_name')->nullable();
-            $table->string('origin');
-            $table->timestamp('published_at')->nullable();
+            $table->dateTime('published_at')->nullable();
         });
     }
 
