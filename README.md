@@ -10,6 +10,7 @@
 ## Setup
 - Clone this repository.
 - Create an .env file, copy the .env-example file into it and run ```php artisan key:generate``` command.
+- Add the DB and API credentials in .env file 
 - Run this command to create containers ```docker compose up --build``` (For windows start docker desktop before running this command).
 - After the containers are successfully created run this command ```sudo docker compose exec app bash```
 - After running this command, run this command to run migrations ```php artisan migrate```
