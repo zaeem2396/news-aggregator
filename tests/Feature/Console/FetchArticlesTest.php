@@ -3,9 +3,6 @@
 namespace Tests\Feature\Console;
 
 use Tests\TestCase;
-use Mockery;
-use App\Models\Articles;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use App\Repositories\ArticlesRepository;
 use App\Mappers\{GuardianArticleMapper, NewsApiArticleMapper, NYTimesArticleMapper};
@@ -14,7 +11,6 @@ class FetchArticlesTest extends TestCase
 {
     public function test_fetch_articles_command()
     {
-        // Mock dependencies
         $this->mock(ArticlesRepository::class, function ($mock) {
             $mock->shouldReceive('fetchArticlesFromNYTimes')
                 ->andReturn([
@@ -30,7 +26,6 @@ class FetchArticlesTest extends TestCase
                 ]);
         });
 
-        // Mock Mappers
         $this->partialMock(NYTimesArticleMapper::class, function ($mock) {
             $mock->shouldReceive('map')->andReturn([
                 'url' => 'http://example.com',
