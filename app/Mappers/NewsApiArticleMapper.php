@@ -13,7 +13,7 @@ class NewsApiArticleMapper
             "description" => $article["description"],
             "content" => $article["description"],
             "url" => $article["url"],
-            "image_url" => $article["urlToImage"],
+            "image_url" => $article["urlToImage"] ?? null,
             "source_name" => "News Org",
             "published_at" => date('Y-m-d H:i:s', strtotime($article["publishedAt"])),
         ];
