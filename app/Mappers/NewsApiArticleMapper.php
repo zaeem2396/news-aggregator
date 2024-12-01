@@ -11,7 +11,7 @@ class NewsApiArticleMapper
             "section" => $article["source"]["name"],
             "author" => $article["author"],
             "description" => $article["description"],
-            "content" => $article["description"],
+            "content" => $article["description"], // Response does not returns content 
             "url" => $article["url"],
             "image_url" => $article["urlToImage"] ?? null,
             "source_name" => "News Org",
