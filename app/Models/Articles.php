@@ -43,8 +43,6 @@ class Articles extends Model
 
         // If date is not passed fetch today's records by default 
         if (empty($inputData['fromDate']) && empty($inputData['toDate'])) {
-            // $today = Carbon::today()->format('Y-m-d');
-            // $query->where('published_at', 'like', '%' . $today . '%');
             $query->orderBy('published_at', 'desc');
         }
 

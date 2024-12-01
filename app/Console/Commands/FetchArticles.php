@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Articles;
 use App\Repositories\ArticlesRepository;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 
 class FetchArticles extends Command
 {
@@ -69,7 +69,7 @@ class FetchArticles extends Command
     {
         try {
 
-            $articles = $this->repository->fetchArticlesFromNewsApi('2024-11-10', '2024-11-30');
+            $articles = $this->repository->fetchArticlesFromNewsApi(Carbon::now()->subDays(20)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
             foreach ($articles as $article) {
                 app(Articles::class)->updateOrCreate(
                     ['url' => $article['url']],
@@ -94,7 +94,7 @@ class FetchArticles extends Command
     public function fetchArticlesFromGuardian()
     {
         try {
-            $articles = $this->repository->fetchArticlesFromGuardian('2024-11-10', '2024-11-30');
+            $articles = $this->repository->fetchArticlesFromGuardian(Carbon::now()->subDays(20)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
             foreach ($articles as $article) {
                 app(Articles::class)->updateOrCreate(
                     ['url' => $article['webUrl']],
