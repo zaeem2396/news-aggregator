@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -55,13 +54,11 @@ class Articles extends Model
             $query->where('section', 'like', '%' . $inputData['section'] . '%');
         }
 
-        // Pagination
         $perPage = $inputData['perPage'] ?? 10;
         $page = $inputData['page'] ?? 1;
 
         $pagination = $query->paginate($perPage, ['*'], 'page', $page);
 
-        // Prepare the response
         return [
             'totalRecords' => $pagination->total(),
             'totalPages' => $pagination->lastPage(),
