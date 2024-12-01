@@ -14,6 +14,9 @@ class Kernel extends ConsoleKernel
     {
         // This cron will run everyday at 23:50/11:50 PM
         $schedule->command('app:fetch-articles')->dailyAt('23:50');
+        
+        // Uncomment this line to pupulate DB via crone job
+        // $schedule->command('app:fetch-articles')->everyMinute();
     }
 
     /**
