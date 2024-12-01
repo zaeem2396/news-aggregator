@@ -2,13 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Mappers\GuardianArticleMapper;
-use App\Mappers\NewsApiArticleMapper;
-use App\Mappers\NYTimesArticleMapper;
-use App\Models\Articles;
-use App\Repositories\ArticlesRepository;
 use Carbon\Carbon;
+use App\Models\Articles;
 use Illuminate\Console\Command;
+use App\Repositories\ArticlesRepository;
+use App\Mappers\{GuardianArticleMapper, NewsApiArticleMapper, NYTimesArticleMapper};
 
 class FetchArticles extends Command
 {
