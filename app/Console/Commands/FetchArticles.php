@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Mappers\GuardianArticleMapper;
+use App\Mappers\NewsApiArticleMapper;
+use App\Mappers\NYTimesArticleMapper;
 use App\Models\Articles;
 use App\Repositories\ArticlesRepository;
 use Carbon\Carbon;
@@ -45,20 +48,8 @@ class FetchArticles extends Command
         try {
             $articles = $this->repository->fetchArticlesFromNYTimes();
             foreach ($articles as $article) {
-                app(Articles::class)->updateOrCreate(
-                    ['url' => $article['url']],
-                    [
-                        "title" => $article["title"],
-                        "section" => $article["section"],
-                        "author" => $article["byline"],
-                        "description" => $article["abstract"],
-                        "content" => $article["abstract"],
-                        "url" => $article["url"],
-                        "image_url" => $article["multimedia"][0]["url"] ?? null,
-                        "source_name" => "NY Times",
-                        "published_at" => $article["published_date"]
-                    ]
-                );
+                $mappedArticle = NYTimesArticleMapper::map($article);
+                app(Articles::class)->updateOrCreate(['url' => $mappedArticle['url']], $mappedArticle);
             }
         } catch (\Exception $e) {
             throw $e;
@@ -71,20 +62,8 @@ class FetchArticles extends Command
 
             $articles = $this->repository->fetchArticlesFromNewsApi(Carbon::now()->subDays(20)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
             foreach ($articles as $article) {
-                app(Articles::class)->updateOrCreate(
-                    ['url' => $article['url']],
-                    [
-                        "title" => $article["title"],
-                        "section" => $article["source"]["name"],
-                        "author" => $article["author"],
-                        "description" => $article["description"],
-                        "content" => $article["description"],
-                        "url" => $article["url"],
-                        "image_url" => $article["urlToImage"],
-                        "source_name" => "News Org",
-                        "published_at" => date('Y-m-d H:i:s', strtotime($article["publishedAt"]))
-                    ]
-                );
+                $mappedArticle = NewsApiArticleMapper::map($article);
+                app(Articles::class)->updateOrCreate(['url' => $mappedArticle['url']], $mappedArticle);
             }
         } catch (\Exception $e) {
             throw $e;
@@ -94,22 +73,14 @@ class FetchArticles extends Command
     public function fetchArticlesFromGuardian()
     {
         try {
-            $articles = $this->repository->fetchArticlesFromGuardian(Carbon::now()->subDays(20)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
+            $articles = $this->repository->fetchArticlesFromGuardian(
+                Carbon::now()->subDays(20)->format('Y-m-d'),
+                Carbon::now()->format('Y-m-d')
+            );
+
             foreach ($articles as $article) {
-                app(Articles::class)->updateOrCreate(
-                    ['url' => $article['webUrl']],
-                    [
-                        "title" => $article["webTitle"],
-                        "section" => $article["sectionName"],
-                        "author" => null,
-                        "description" => null,
-                        "content" => null,
-                        "url" => $article["webUrl"],
-                        "image_url" => null,
-                        "source_name" => "Guardian News",
-                        "published_at" => date('Y-m-d H:i:s', strtotime($article["webPublicationDate"]))
-                    ]
-                );
+                $mappedArticle = GuardianArticleMapper::map($article);
+                app(Articles::class)->updateOrCreate(['url' => $mappedArticle['url']], $mappedArticle);
             }
         } catch (\Exception $e) {
             throw $e;
